@@ -23,7 +23,7 @@ BOOKING_SQL = """
         COUNT(*) AS total_bookings,
         SUM(b.total_price) AS host_gmv
     FROM events_booking b
-    JOIN events_eventpage e ON b.event_page_id = e.id
+    JOIN events_eventpage e ON b.event_page_id = e.page_ptr_id
     LEFT JOIN events_eventhost eh ON e.game_owner_id = eh.id
     LEFT JOIN utils_geolocation g ON e.geolocation_id = g.id
     WHERE DATE(b.booking_time AT TIME ZONE 'UTC') BETWEEN %s AND %s
@@ -38,7 +38,7 @@ CANCEL_SQL = """
         e.game_owner_id AS host_id,
         COUNT(*) AS cancels
     FROM events_booking b
-    JOIN events_eventpage e ON b.event_page_id = e.id
+    JOIN events_eventpage e ON b.event_page_id = e.page_ptr_id
     WHERE b.cancelled_at IS NOT NULL
       AND e.game_owner_id IS NOT NULL
       AND DATE(b.cancelled_at AT TIME ZONE 'UTC') BETWEEN %s AND %s

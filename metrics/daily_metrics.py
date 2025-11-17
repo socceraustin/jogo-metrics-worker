@@ -45,7 +45,7 @@ CITY_BREAKDOWN_SQL = """
         SUM(b.total_price) AS total_gmv,
         COUNT(*) AS total_bookings
     FROM events_booking b
-    JOIN events_eventpage e ON b.event_page_id = e.id
+    JOIN events_eventpage e ON b.event_page_id = e.page_ptr_id
     LEFT JOIN utils_geolocation g ON e.geolocation_id = g.id
     WHERE DATE(b.booking_time AT TIME ZONE 'UTC') BETWEEN %s AND %s
       AND b.status = ANY(%s)
