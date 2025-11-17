@@ -54,9 +54,10 @@ UPSERT_SQL = """
         host_gmv,
         host_payouts,
         cancels,
-        city
+        city,
+        last_updated
     )
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TIMEZONE('utc', NOW()))
     ON CONFLICT (host_id, date) DO UPDATE SET
         host_name = EXCLUDED.host_name,
         host_bookings = EXCLUDED.host_bookings,

@@ -60,9 +60,10 @@ UPSERT_SQL = """
         total_unique_players,
         total_revenue_stripe,
         total_refunds,
-        city_breakdown
+        city_breakdown,
+        last_updated
     )
-    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, TIMEZONE('utc', NOW()))
     ON CONFLICT (date) DO UPDATE SET
         total_gmv = EXCLUDED.total_gmv,
         total_bookings = EXCLUDED.total_bookings,
